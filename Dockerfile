@@ -17,8 +17,8 @@ RUN ls -la /usr/local/bin
 RUN echo Helm CLI
 RUN ls -la /usr/local/bin
 ADD https://get.helm.sh/helm-v3.15.1-linux-amd64.tar.gz /usr/local/bin
-RUN cd /usr/local/bin && tar -xzf helm-v3.15.1-linux-amd64.tar.gz && rm -f helm-v3.15.1-linux-amd64.tar.gz
-RUN ls -la /usr/local/bin/linux-amd64
+RUN cd /usr/local/bin && tar -xzf helm-v3.15.1-linux-amd64.tar.gz && rm -f helm-v3.15.1-linux-amd64.tar.gz && mv /usr/local/bin/linux-amd64/helm /usr/local/bin && rm -rf /usr/local/bin/linux-amd64
+RUN ls -la /usr/local/bin/
 
 # Google CLI
 RUN echo  Google CLI
