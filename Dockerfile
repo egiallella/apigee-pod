@@ -9,17 +9,8 @@ ADD https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.14
 RUN cd /usr/local/bin && tar -xzf openshift-client-linux.tar.gz && rm -f openshift-client-linux.tar.gz
 
 # Google CLI
-RUN cat <<EOF > /etc/yum.repos.d/google-cloud-sdk.repo
-[google-cloud-cli]
-name=Google Cloud CLI
-baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el9-x86_64
-enabled=1
-gpgcheck=1
-repo_gpgcheck=0
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
-
-RUN dnf install google-cloud-cli -y
+COPY files/etc/yum.repos.d/google-cloud-sdk.repo /etc/yum.repos.d/google-cloud-sdk.repo
+RUN  dnf install google-cloud-cli -y
 
 RUN dnf clean all
 USER 1001
