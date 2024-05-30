@@ -9,7 +9,7 @@ ADD https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/latest-4.14
 RUN cd /usr/local/bin && tar -xzf openshift-client-linux.tar.gz && rm -f openshift-client-linux.tar.gz
 
 # Google CLI
-RUN tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
+RUN <<EOM > /etc/yum.repos.d/google-cloud-sdk.repo 
 [google-cloud-cli]
 name=Google Cloud CLI
 baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el9-x86_64
