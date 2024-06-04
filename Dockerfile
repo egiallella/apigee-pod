@@ -27,11 +27,11 @@ RUN  dnf install google-cloud-cli -y
 
 RUN mkdir -p /opt/apigee-hybrid/helm-charts
 RUN cd /opt/apigee-hybrid/helm-charts
-RUN export APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts
-RUN export CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
-RUN export CHART_VERSION=1.12.0-hotfix.1
-RUN APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts && CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts && CHART_VERSION=1.12.0-hotfix.1 && helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar
-RUN helm pull oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts/apigee-datastore --version 1.12.0-hotfix.1 --untar
+ARG APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts
+ARG CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
+ARG CHART_VERSION=1.12.0-hotfix.1
+RUN helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-datastore --version $CHART_VERSION --untar
 RUN helm pull $CHART_REPO/apigee-env --version $CHART_VERSION --untar
 RUN helm pull $CHART_REPO/apigee-ingress-manager --version $CHART_VERSION --untar
 RUN helm pull $CHART_REPO/apigee-org --version $CHART_VERSION --untar
