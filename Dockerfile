@@ -26,7 +26,7 @@ COPY files/etc/yum.repos.d/google-cloud-sdk.repo /etc/yum.repos.d/google-cloud-s
 RUN  dnf install google-cloud-cli -y
 
 RUN mkdir -p /opt/apigee-hybrid/helm-charts
-RUN cd /opt/apigee-hybrid/helm-charts
+WORKDIR /opt/apigee-hybrid/helm-charts
 ARG APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts
 ARG CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
 ARG CHART_VERSION=1.12.0-hotfix.1
