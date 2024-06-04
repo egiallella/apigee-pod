@@ -30,7 +30,7 @@ RUN cd /opt/apigee-hybrid/helm-charts
 RUN export APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts
 RUN export CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
 RUN export CHART_VERSION=1.12.0-hotfix.1
-RUN helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar
+RUN APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts  CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts CHART_VERSION=1.12.0-hotfix.1 helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar
 RUN helm pull $CHART_REPO/apigee-datastore --version $CHART_VERSION --untar
 RUN helm pull $CHART_REPO/apigee-env --version $CHART_VERSION --untar
 RUN helm pull $CHART_REPO/apigee-ingress-manager --version $CHART_VERSION --untar
