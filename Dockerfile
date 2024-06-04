@@ -25,7 +25,19 @@ RUN echo  Google CLI
 COPY files/etc/yum.repos.d/google-cloud-sdk.repo /etc/yum.repos.d/google-cloud-sdk.repo
 RUN  dnf install google-cloud-cli -y
 
-
+RUN mkdir -p /opt/apigee-hybrid/helm-charts
+RUN cd /opt/apigee-hybrid/helm-charts
+RUN export APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts
+RUN export CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
+RUN export CHART_VERSION=1.12.0-hotfix.1
+RUN helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-datastore --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-env --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-ingress-manager --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-org --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-redis --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-telemetry --version $CHART_VERSION --untar
+RUN helm pull $CHART_REPO/apigee-virtualhost --version $CHART_VERSION --untar
 
 RUN dnf clean all
 
