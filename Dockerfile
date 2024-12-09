@@ -2,7 +2,12 @@ FROM docker.io/redhat/ubi9:latest
 
 # Per installare e modificare sono necessari i permessi di ROOT
 USER 0
-
+RUN touch /var/log/httpd/modsec_debug.log
+RUN chmod 0600 /var/log/httpd/modsec_debug.log
+RUN touch /etc/apache2/logs/error_log
+RUN touch /etc/apache2/logs/modsec_audit.log
+RUN chmod 0644 /etc/apache2/logs/error_log
+RUN chmod 0600 /etc/apache2/logs/modsec_audit.log
 # OS RPMs
 RUN dnf install rsync less vim jq python3-requests git -y
 
@@ -25,19 +30,19 @@ RUN echo  Google CLI
 COPY files/etc/yum.repos.d/google-cloud-sdk.repo /etc/yum.repos.d/google-cloud-sdk.repo
 RUN  dnf install google-cloud-cli -y
 
-RUN mkdir -p /opt/apigee-hybrid/helm-charts
-WORKDIR /opt/apigee-hybrid/helm-charts
-ARG APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts
-ARG CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
-ARG CHART_VERSION=1.12.0-hotfix.1
-RUN helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar
-RUN helm pull $CHART_REPO/apigee-datastore --version $CHART_VERSION --untar
-RUN helm pull $CHART_REPO/apigee-env --version $CHART_VERSION --untar
-RUN helm pull $CHART_REPO/apigee-ingress-manager --version $CHART_VERSION --untar
-RUN helm pull $CHART_REPO/apigee-org --version $CHART_VERSION --untar
-RUN helm pull $CHART_REPO/apigee-redis --version $CHART_VERSION --untar
-RUN helm pull $CHART_REPO/apigee-telemetry --version $CHART_VERSION --untar
-RUN helm pull $CHART_REPO/apigee-virtualhost --version $CHART_VERSION --untar
+# RUN mkdir -p /opt/apigee-hybrid/helm-charts
+# WORKDIR /opt/apigee-hybrid/helm-charts
+# ARG APIGEE_HELM_CHARTS_HOME=/opt/apigee-hybrid/helm-charts
+# ARG CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
+# ARG CHART_VERSION=1.12.0-hotfix.1
+# RUN helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar
+# RUN helm pull $CHART_REPO/apigee-datastore --version $CHART_VERSION --untar
+# RUN helm pull $CHART_REPO/apigee-env --version $CHART_VERSION --untar
+# RUN helm pull $CHART_REPO/apigee-ingress-manager --version $CHART_VERSION --untar
+# RUN helm pull $CHART_REPO/apigee-org --version $CHART_VERSION --untar
+# RUN helm pull $CHART_REPO/apigee-redis --version $CHART_VERSION --untar
+# RUN helm pull $CHART_REPO/apigee-telemetry --version $CHART_VERSION --untar
+# RUN helm pull $CHART_REPO/apigee-virtualhost --version $CHART_VERSION --untar
 
 RUN dnf clean all
 
