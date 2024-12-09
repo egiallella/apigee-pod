@@ -1,5 +1,5 @@
-FROM docker.io/redhat/ubi9:latest
-
+# FROM docker.io/redhat/ubi9:latest
+FROM image-registry.openshift-image-registry.svc:5000/apigee/httpd-example
 # Per installare e modificare sono necessari i permessi di ROOT
 USER 0
 RUN touch /var/log/httpd/modsec_debug.log
