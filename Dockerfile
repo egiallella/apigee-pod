@@ -4,10 +4,10 @@ FROM image-registry.openshift-image-registry.svc:5000/apigee/httpd-example
 USER 0
 RUN touch /var/log/httpd/modsec_debug.log
 RUN chmod 0600 /var/log/httpd/modsec_debug.log
-RUN touch /etc/apache2/logs/error_log
-RUN touch /etc/apache2/logs/modsec_audit.log
-RUN chmod 0644 /etc/apache2/logs/error_log
-RUN chmod 0600 /etc/apache2/logs/modsec_audit.log
+# RUN touch /etc/apache2/logs/error_log
+# RUN touch /etc/apache2/logs/modsec_audit.log
+# RUN chmod 0644 /etc/apache2/logs/error_log
+# RUN chmod 0600 /etc/apache2/logs/modsec_audit.log
 # OS RPMs
 RUN dnf install rsync less vim jq python3-requests git -y
 
